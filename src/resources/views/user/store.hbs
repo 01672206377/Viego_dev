@@ -1,0 +1,15 @@
+<div class="mt-5">
+    {{#each cars}}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="{{this.imgcar}}" class="card-img-top" alt="{{this.brand}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.brand}}</h5>
+                    <p class="card-text">{{this.price}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

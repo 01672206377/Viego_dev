@@ -50,7 +50,6 @@ class AdminController{
                 users : mutipleMongooseToObject(users)
             }))
             .catch(next)
-        
     }
 
     // [PATCH] /admin/:id/restoreUser

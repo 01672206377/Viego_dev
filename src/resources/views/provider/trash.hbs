@@ -1,0 +1,99 @@
+<div class="mt-4">
+    <div>
+        <h2>TRANG QUẢN LÝ THÔNG TIN DỊCH VỤ ĐÃ XÓA</h2>
+        <a href="/service/store">Danh sách cá nhân</a>
+    </div>
+
+    <table class="table MT-4">
+        <thead>
+            <tr>
+                <th scope="col">Stt</th>
+                <th scope="col">Brand</th>
+                <th scope="col">model</th>
+                <th scope="col">mileage</th>
+                <th scope="col">status</th>
+                <th scope="col">price</th>
+                <th scope="col">location</th>
+                <th scope="col" colspan="2">Ngày tạo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cars}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.brand}}</td>
+                    <td>{{this.model}}</td>
+                    <td>{{this.mileage}}</td>
+                    <td>{{this.status}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.location}}</td>
+                    <td>{{formatTime this.createdAt}}</td>
+                    <td>
+                        <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi Phục</a>
+                        <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-car-modal">Xóa!!</a>
+                    </td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        Không có người dùng nào trong hệ thống!!!
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- confirm delate user --}}
+<div id="delete-car-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa Dịch Vụ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn muốn xóa dịch vụ này không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="btn-delete-car-modal">Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- delete hidden form --}}
+<form name="delete-form-car" method="POST"></form>
+<form name="restore-form-car" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+
+        var btnDeleteCar = document.getElementById('btn-delete-car-modal')
+        var carId;
+        var deleteCarForm = document.forms['delete-form-car'];
+        var restoreCarForm = document.forms['restore-form-car'];
+        var restoreBtn = $('.btn-restore')
+
+        $('#delete-car-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            carId = button.data('id')
+        })
+
+        btnDeleteCar.onclick = function(){
+            deleteCarrForm.action = '/admin/' + carId + '/force?_method=DELETE';
+            deleteCarForm.submit();
+        }
+
+        restoreBtn.click(function(e){
+            e.preventDefault();
+            carId = $(this).data('id')
+            restoreCarForm.action = '/service/' + carId + '/restore?_method=PATCH';
+            restoreCarForm.submit();
+        })
+
+    })
+</script>

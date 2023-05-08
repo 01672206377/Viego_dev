@@ -67,7 +67,7 @@ class AuthController{
             } else if (existingUser.role === 'user') {
             res.render('user/dash', { user: existingUser });
             } else if (existingUser.role === 'provider') {
-            res.render('provider_view', { user: existingUser });
+            res.render('provider/dash', { user: existingUser });
             }
               
         } catch (error) {

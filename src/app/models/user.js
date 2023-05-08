@@ -28,7 +28,22 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]
+  }],
+  fullname:{
+    type:String
+  },
+  location:{
+    type:String
+  },
+  phone:{
+    type:String
+  },
+  dob:{
+    type:Date
+  },
+  avatar:{
+    type:String
+  }
 }, { timestamps: true });
 
 userSchema.plugin(mongooseDelete, { 
